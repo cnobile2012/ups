@@ -90,7 +90,7 @@ class BuyAPiUPS(LoggingConfig):
                     if self._is_power_failure():
                         if self.pwr_lost_time is None:
                             self.pwr_lost_time = datetime.now()
-                            self.log.warn("RPi Power lost at: %s",
+                            self.log.warning("RPi Power lost at: %s",
                                           self.pwr_lost_time )
                     elif self.pwr_lost_time:
                         self.log.info("RPi Power restored at: %s",
@@ -104,7 +104,7 @@ class BuyAPiUPS(LoggingConfig):
 
                     if (self.pwr_lost_time
                         and (self.pwr_lost_time + self.delay) <= now):
-                        self.log.warn("Shutdown at: %s, elapsed time: %s",
+                        self.log.warning("Shutdown at: %s, elapsed time: %s",
                                       now, now - self.pwr_lost_time)
                         self.shutdown = True
                         break
@@ -112,7 +112,7 @@ class BuyAPiUPS(LoggingConfig):
                     self.log.info("No UPS HAT waiting to exit.")
                     break
         except BaseException as e:
-            self.log.warn("Exception raised: %s", e, exc_info=True)
+            self.log.warning("Exception raised: %s", e, exc_info=True)
         finally:
             self._teardown()
             end_dt = datetime.now()
